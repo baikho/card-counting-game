@@ -11,7 +11,31 @@ const Game = ({ game, actions }) => {
   const isOver = idxEnd >= shoe.length
 
   return (
-    <div className='p3 mx-auto' style={{ maxWidth: 600 }}>
+    <div
+      className='p3 mx-auto'
+      style={{ maxWidth: 600 }}
+      tabIndex="0"
+      onKeyDown={(e) => {
+        switch (e.key) {
+          case 'ArrowUp':
+            e.preventDefault()
+            actions.toggleCount()
+            break
+          case 'ArrowRight':
+            e.preventDefault()
+            if (!isOver) {
+              actions.deal()
+            }
+            break
+          case 'ArrowLeft':
+            e.preventDefault()
+            actions.newGame()
+            break
+          default:
+            break
+        }
+      }}
+    >
       <Header />
       <div className='mb3'>
         {cards.map((c, i) =>
@@ -57,6 +81,10 @@ const Game = ({ game, actions }) => {
           : `Cards seen: ${idxEnd} (${shoe.length - idxEnd} remaining)`
         }
       </p>
+      <div className='mb2 h6'>
+        <p><strong>Keyboard Controls:</strong></p>
+        <p>↑ Show running count • → More cards • ← Reset</p>
+      </div>
       <Footer />
     </div>
   )

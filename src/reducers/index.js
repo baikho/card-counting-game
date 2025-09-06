@@ -31,6 +31,7 @@ const deal = (state, action) => {
     idx,
     rand,
     count: getCount(state.count, cards),
+    is_visible: false,
   }
 }
 
